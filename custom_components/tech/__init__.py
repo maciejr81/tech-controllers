@@ -13,7 +13,7 @@ CONFIG_SCHEMA = vol.Schema({DOMAIN: vol.Schema({})}, extra=vol.ALLOW_EXTRA)
 
 # List the platforms that you want to support.
 # For your initial PR, limit it to 1 platform.
-PLATFORMS = ["climate"]
+PLATFORMS = ["climate", "sensor"]
 
 
 async def async_setup(hass: HomeAssistant, config: dict):
@@ -24,6 +24,7 @@ async def async_setup(hass: HomeAssistant, config: dict):
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Set up Tech Controllers from a config entry."""
     _LOGGER.debug("Setting up component's entry.")
+    _LOGGER.debug("Entry id: " + str(entry.entry_id))
     _LOGGER.debug("Entry -> title: " + entry.title + ", data: " + str(entry.data) + ", id: " + entry.entry_id + ", domain: " + entry.domain)
     # Store an API object for your platforms to access
     hass.data.setdefault(DOMAIN, {})
