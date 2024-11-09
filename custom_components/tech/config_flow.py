@@ -74,15 +74,19 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="user", data_schema=DATA_SCHEMA, errors=errors
         )
 
-    def _create_config_entry(self, module: dict) -> ConfigEntry:
+    def _create_config_entry(self, module):
         return ConfigEntry(
-            data=module,                         
-            title=module["version"], 
-            entry_id=uuid.uuid4().hex,
-            domain=DOMAIN,
-            version=ConfigFlow.VERSION,
-            minor_version=ConfigFlow.MINOR_VERSION,
-            source=ConfigFlow.CONNECTION_CLASS)
+            version=1,  # Configuration entry version
+            domain=DOMAIN,  # Your integration's domain
+            title=f"Tech Controller {module}",  # Human-readable title
+            data={
+                "module": module,
+                # Add other configuration data here
+            },
+            options={},  # Required - can be empty dict
+            unique_id=f"tech_controller_{module}",  # Required - unique identifier
+            discovery_keys=[],  # Required - can be empty list
+        )
     
     def _create_modules_array(self, validated_input: dict) -> [dict]:
         return [
